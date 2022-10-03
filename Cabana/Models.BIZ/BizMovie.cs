@@ -12,32 +12,32 @@ namespace Cabana.Models.BIZ
     {
         public bool HasMovie(int userId, int movie_id)
         {
-            IDatabase db = new Database("umbracoDbDSN");
+            using (IDatabase db = new Database("umbracoDbDSN"))
+            { 
+                List<Cabana.Models.DB.Movie> movies = db.Fetch<Cabana.Models.DB.Movie>("where MyUserId = " + userId + " and MovieID = " + movie_id);
 
-            List<Cabana.Models.DB.Movie> movies = db.Fetch<Cabana.Models.DB.Movie>("where MyUserId = " + userId + " and MovieID = " + movie_id);
 
-            db.Dispose();
+                if (movies.IsNull())
+                    throw new Exception();
 
-            if (movies.IsNull())
-                throw new Exception();
-
-            if (movies.Any())
-                return true;
-            return false;
+                if (movies.Any())
+                    return true;
+                return false;
+                //db.Dispose();
+            }
         }
 
         public List<Cabana.Models.DB.Movie> GetMovies(int userId)
         {
-            IDatabase db = new Database("umbracoDbDSN");
+            using (IDatabase db = new Database("umbracoDbDSN"))
+            { 
+                List<Cabana.Models.DB.Movie> movies = db.Fetch<Cabana.Models.DB.Movie>("where MyUserId = " + userId);
+                if (movies.IsNull())
+                    throw new Exception();
 
-            List<Cabana.Models.DB.Movie> movies = db.Fetch<Cabana.Models.DB.Movie>("where MyUserId = " + userId);
-            if (movies.IsNull())
-                throw new Exception();
-
-            db.Dispose();
-
-
-            return movies;
+                return movies;
+                //db.Dispose();
+            }
         }
 
         public void AddMovie(int movie_id)
@@ -49,19 +49,24 @@ namespace Cabana.Models.BIZ
 
             Cabana.Models.Movie mov = RestHelper.MovieGET(movie_id);
 
-            IDatabase db = new Database("umbracoDbDSN");
-            Cabana.Models.DB.Movie _m = new Cabana.Models.DB.Movie()
+            using (IDatabase db = new Database("umbracoDbDSN"))
             {
-                MovieID = mov.id,
-                Title = mov.title,
-                MyUserID = _u.Id
-            };
-            db.Insert<Cabana.Models.DB.Movie>(_m);
-            db.Dispose();
+                Cabana.Models.DB.Movie _m = new Cabana.Models.DB.Movie()
+                {
+                    MovieID = mov.id,
+                    Title = mov.title,
+                    MyUserID = _u.Id
+                };
+                db.Insert<Cabana.Models.DB.Movie>(_m);
+                //db.Dispose();
+            }
         }
 
         public List<DtoMovie> ToDTOList(List<Cabana.Models.DB.Movie> movies)
         {
+            if (movies.IsNull())
+                throw new Exception();
+
             List<DtoMovie> _m = new List<DtoMovie>();
             foreach (Cabana.Models.DB.Movie mov in movies)
                 _m.Add(new DtoMovie(mov.MovieID, mov.Title, -1, null, null));
