@@ -1,0 +1,14 @@
+﻿<div>
+    backoffice - this is a list of all members in the system
+</div>
+
+
+
+<div ng-controller="browseCtrl as con">
+    <div>{{ error }}</div>
+    <ul>
+        <li ng-repeat="x in members">
+            {{ x.name }}
+        </li>
+    </ul>
+</div>

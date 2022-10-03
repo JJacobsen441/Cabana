@@ -1,0 +1,13 @@
+﻿
+
+@model Cabana.Models.VmSearch
+
+@using (Html.BeginUmbracoForm<Cabana.Controllers.CabanaController>("Search", "Cabana", new { }))
+{
+<span>
+    @Html.CheckBoxFor(m => m.genres, new { @class="genres"})&nbsp;genres<br />
+    @Html.CheckBoxFor(m => m.votes, new { @class = "votes" })&nbsp;votes<br />
+    @Html.TextBoxFor(m => m.search_string, new { placeholder = "write here.." })
+    <input type="submit" name="Submit" value="Søg" />
+</span>
+}

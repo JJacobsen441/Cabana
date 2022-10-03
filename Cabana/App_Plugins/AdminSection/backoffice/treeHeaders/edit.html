@@ -1,0 +1,17 @@
+﻿<div>
+    backoffice - search for a member here
+</div>
+
+<div ng-controller="editCtrl as ed">
+    Name: <input ng-model="name.val">
+
+    <button style="height:30px;width:120px" ng-click="ed.getMemberMovies(name.val)" type="button">Search</button>
+
+    <div>{{ error }}</div>
+    <div>{{ res_name }}</div>
+    <ul>
+        <li ng-repeat="z in movies">
+            {{ z.m_name }}
+        </li>
+    </ul>
+</div>

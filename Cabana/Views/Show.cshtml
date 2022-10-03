@@ -1,0 +1,32 @@
+﻿@*@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Show>
+    @using ContentModels = Umbraco.Web.PublishedModels;*@
+
+
+@using Cabana.Models.DTO;
+@using Cabana.Models;
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ColShow>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{ Layout = "Master.cshtml"; }
+
+<div>@Model.content.Value("showHeader")</div>
+<div>
+    @{ DtoMovie item = Model.movie as DtoMovie;
+        if (item != null)
+        {
+            <div>
+                <span style="display:inline-block;width:200px">Title:</span><span>@item.title</span>
+            </div>
+            <div>
+                <span style="display:inline-block;width:200px">Genres:</span>
+                @foreach (string _s in item.genres)
+                {<span>@_s</span>break;}
+                <br />
+                <span style="display: inline-block; width: 200px">Votes:</span><span>@item.votes_avg</span>
+                <br />
+                <span><a href="/save?movie_id=@item.movie_id">save</a></span>
+                <br /><br />
+                </div>
+                <div>Description: @item.description</div> 
+        } 
+    }
+</div>

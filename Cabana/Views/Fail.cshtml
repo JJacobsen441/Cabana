@@ -1,0 +1,7 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Fail>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<div>@Model.Value("message")</div>

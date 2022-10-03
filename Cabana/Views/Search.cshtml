@@ -1,0 +1,42 @@
+﻿@*@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Search>
+@using ContentModels = Umbraco.Web.PublishedModels;*@
+
+
+@using Cabana.Models.DTO;
+@using Cabana.Models;
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ColSearch>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+@{
+	Layout = "Master.cshtml";
+}
+
+<div>@Model.content.Value("searchHeader")</div>
+<div>
+    @{ Html.RenderPartial("~/Views/Partials/SearchForm.cshtml", new VmSearch()); }
+</div>
+<br />
+<div>
+    @{ 
+        List<DtoMovie> items = Model.movies as List<DtoMovie>;
+        if (items != null)
+        {
+            foreach (DtoMovie _m in items)
+            {
+                <div><span style="display:inline-block;width:200px">Title:</span><span>@_m.title</span></div> 
+                <div>
+                    <span style="display:inline-block;width:200px">Genres:</span>
+                    @foreach (string _s in _m.genres)
+                    {<span>@_s</span>break;}
+                    <br />
+                    <span style="display:inline-block;width:200px">Votes:</span><span>@_m.votes_avg</span>
+                    <br />
+                    <a href="/show?movie_id=@_m.movie_id">show</a>&nbsp;
+                    <a href="/save?movie_id=@_m.movie_id">save</a>
+                    <br />
+                    &nbsp;
+                </div>
+            }
+        } 
+    }
+</div>

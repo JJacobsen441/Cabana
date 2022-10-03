@@ -1,0 +1,48 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = null;
+}
+
+@* the fun starts here *@
+
+@using ClientDependency.Core.Mvc
+@using ClientDependency.Core
+@using Umbraco.Web;
+
+<!DOCTYPE HTML>
+
+<html lang="da">
+<head>
+    <title>Movie List</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="/scripts/cabana.js"></script>   
+</head>
+<body>
+    <div>
+        @Html.Partial("LoginStatus")
+    </div>
+    <div>
+        <div class="padding-left-35">MENU</div>
+        <a href="/"><span>[front]</span></a>
+        <a href="/search/"><span>[search]</span></a>
+        <a href="/save/"><span>[saved movies]</span></a>
+        <a href="/registerlogin/"><span>[register/login]</span></a>
+    </div>
+    <br />
+    
+    @RenderBody()
+
+    <footer>
+        <br />
+        <div>
+            <div>
+                Copyright &copy @DateTime.Now.Year
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

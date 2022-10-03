@@ -1,0 +1,7 @@
+﻿{
+    "javascript": [
+        "~/App_Plugins/AdminSection/adminSection.resource.js",
+        "~/App_Plugins/AdminSection/backoffice/adminSection/edit.controller.js",
+        "~/App_Plugins/AdminSection/backoffice/adminSection/delete.controller.js"
+    ]
+}

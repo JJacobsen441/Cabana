@@ -1,0 +1,25 @@
+﻿@*@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Save>
+    @using ContentModels = Umbraco.Web.PublishedModels;*@
+
+
+@using Cabana.Models.DTO;
+@using Cabana.Models;
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ColSave>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{ Layout = "Master.cshtml"; }
+
+<div>@Model.content.Value("saveHeader")</div>
+<div>
+    @{ List<DtoMovie> items = Model.movies as List<DtoMovie>;
+        if (items != null)
+        {
+            foreach (DtoMovie _m in items)
+            {
+                <div>
+                    <span style="display:inline-block;width:200px">Title: @_m.title</span>
+                    <span><a href="/show?movie_id=@_m.movie_id">show</a><br /></span>
+                </div>
+            }
+        }
+    }
+</div>

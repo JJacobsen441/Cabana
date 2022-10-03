@@ -1,0 +1,16 @@
+﻿{
+  "$schema": "https://json.schemastore.org/package.manifest",
+  "sections": [
+    {
+      "alias": "myAdminSection",
+      "name": "AdminSection"
+    }
+  ],
+
+  "javascript": [
+    //"~/App_Plugins/AdminSection/adminSection.resource.js",
+    "~/App_Plugins/AdminSection/backoffice/js/edit.controller.js",
+    "~/App_Plugins/AdminSection/backoffice/js/delete.controller.js",
+    "~/App_Plugins/AdminSection/backoffice/js/browse.controller.js"
+  ]
+}
