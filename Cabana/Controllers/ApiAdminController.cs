@@ -66,6 +66,52 @@ namespace Cabana.Controllers
                     throw new Exception();
 
                 string res, _res;
+                DtoMyUser user = DBAccess.GetUserMovies(name);
+
+                if (string.IsNullOrEmpty(user.Name))
+                    _res = "{\"error\":\"no users by that name\"}";
+                else
+                {
+                    List<DtoMovie> movies = user.Movies;
+
+                    _res = "{\"name\":\"" + user.Name + "\"," +
+                        "\"movies\":[";
+                    int c = 0;
+                    foreach (DtoMovie entry in movies)
+                    {
+                        if (c != 0)
+                            _res += ",";
+                        _res += "{\"m_name\":\"" + entry.title + "\"}";
+                        c++;
+                    }
+                    _res += "], \"error\":\"\"}";
+                }
+                res = _res;
+
+                return res;/**/
+            }
+            catch (Exception e)
+            {
+                //Response.StatusCode = 500;
+                return "{\"error\":\"error\"}";
+            }
+        }
+
+        /*[HttpGet]
+        //[Route("member/{name}/movies")]
+        //[Route("member/{name?}/movies")]
+        //[Route("umbraco/backoffice/api/{apiadmin}/{member}/{name?}/{movies}")]
+        public string GetMembersMovies(string name)
+        {
+            try
+            {
+                if (name.IsNull())
+                    throw new Exception();
+
+                if (!CheckHelper.CheckName(ref name, false, 20, true, new List<string>() { "no_tag" }, CharacterHelper.All(false)))
+                    throw new Exception();
+
+                string res, _res;
                 DtoMyUser user = DBAccess.GetUser(name);
 
                 if (string.IsNullOrEmpty(user.Name))
@@ -88,14 +134,14 @@ namespace Cabana.Controllers
                 }
                 res = _res;                
 
-                return res;/**/
+                return res;/**
             }
             catch (Exception e)
             {
                 //Response.StatusCode = 500;
                 return "{\"error\":\"error\"}";
             }
-        }
+        }/**/
 
         /*[Route("product/{id?}")]
         public string GetMember(int? id)

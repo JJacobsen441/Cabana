@@ -30,7 +30,15 @@ namespace Cabana.Models.DB
         {
             BizMyUser biz = new BizMyUser();
             MyUser user = biz.GetUser(name);
-            
+
+            return biz.ToDTO(user);
+        }
+
+        public static DtoMyUser GetUserMovies(string name)
+        {
+            BizMyUser biz = new BizMyUser();
+            MyUser user = biz.GetUserMovies(name);
+
             return biz.ToDTO(user);
         }
     }

@@ -44,12 +44,34 @@ namespace Cabana.Models.BIZ
             }
         }
 
+        public MyUser GetUserMovies(string name)
+        {
+            if (name.IsNull())
+                throw new Exception();
+
+            using (IDatabase db = new Database("umbracoDbDSN"))
+            {
+                List<MyUser> _u = db.FetchOneToMany<MyUser>(x=>x.Movies, string.Format("select u.*, m.* from MyUser u inner join Movie m on u.Id = m.MyUserId where u.Name = '{0}' order by u.Id", name));
+                if (_u.IsNull())
+                    throw new Exception();
+
+                if (_u.Any())
+                    return _u[0];
+                return new MyUser();
+            }
+        }
+
         public DtoMyUser ToDTO(MyUser user)
         {
             if (user.IsNull())
                 throw new Exception();
 
-            DtoMyUser _u = new DtoMyUser(user.Id, user.UmbId, user.Name);
+            BizMovie biz = new BizMovie();
+            List<DtoMovie> list = null;
+            if(user.Movies != null && user.Movies.Any())
+                list = biz.ToDTOList(user.Movies);
+
+            DtoMyUser _u = new DtoMyUser(user.Id, user.UmbId, user.Name, list);
             return _u;
         }
     }
