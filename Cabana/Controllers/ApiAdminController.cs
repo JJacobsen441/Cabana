@@ -35,14 +35,14 @@ namespace Cabana.Controllers
                 res.members = new List<Entry1>();
                 foreach (string entry in names)
                     res.members.Add(new Entry1() { name = entry });
-                res.error = "";
+                res.Error = "";
                 
                 return Json(res);/**/
             }
             catch (Exception e)
             {
                 //Response.StatusCode = 500;
-                Result1 res = new Result1() { error = "error" };
+                Result1 res = new Result1() { Error = "error" };
                 return Json(res);
             }
         }
@@ -70,7 +70,7 @@ namespace Cabana.Controllers
                 DtoMyUser user = DBAccess.GetUserMovies(name);
 
                 if (string.IsNullOrEmpty(user.Name))
-                    res.error = "no users by that name or user has no movies";
+                    res.Error = "no users by that name or user has no movies";
                 else
                 {
                     List<DtoMovie> movies = user.Movies;
@@ -81,7 +81,7 @@ namespace Cabana.Controllers
                     foreach (DtoMovie entry in movies)
                         res.movies.Add(new Entry2() { m_name = entry.title });
                         
-                    res.error = "";
+                    res.Error = "";
                 }
                 
                 return Json(res);
@@ -89,7 +89,7 @@ namespace Cabana.Controllers
             catch (Exception e)
             {
                 //Response.StatusCode = 500;
-                Result2 res = new Result2() { error = "error" };
+                Result2 res = new Result2() { Error = "error" };
                 return Json(res);
             }
         }

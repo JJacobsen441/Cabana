@@ -1,24 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Cabana.Models
 {
     public class RestResponces
     {
     }
-
     public class Entry1 { public string name { get; set; } }
-    public class Result1
+    public class Entry2 { public string m_name { get; set; } }
+
+    /*
+     * I could have used inheritance also
+     * */
+    public interface IResult { string Error { get; set; } }
+
+    public class Result1 : IResult
     {
         public List<Entry1> members { get; set; }
-        public string error { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public string Error { get; set; }
     }
 
-    public class Entry2 { public string m_name { get; set; } }
-    public class Result2
+    public class Result2 : IResult
     {
         public string name { get; set; }
         public List<Entry2> movies { get; set; }
-        public string error { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public string Error { get; set; }
     }
 
 
