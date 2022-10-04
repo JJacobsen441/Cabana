@@ -2,8 +2,11 @@
     $scope.name = {val:null};
     this.getMemberMovies = function (u_name) {
         //alert(u_name);
-        if (u_name == null || u_name == '')
+        if (u_name == null || u_name == '') {
             $scope.error = "invalid user";
+            $scope.movies = '';
+            $scope.res_name = '';
+        }
         else {
             $http({
                 url: "/Umbraco/backoffice/Api/ApiAdmin/GetMembersMovies",//member/" + mem_name + "/movies",
@@ -14,8 +17,7 @@
                     name: u_name
                 }
             }).then(function (response) {
-                var obj = JSON.parse(response.data);
-                //angular.element('#tester').html(obj.data);
+                var obj = response.data;
                 if (obj.error == '') {
                     $scope.movies = obj.movies;
                     $scope.res_name = obj.name;

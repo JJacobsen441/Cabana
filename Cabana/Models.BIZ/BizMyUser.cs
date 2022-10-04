@@ -39,7 +39,7 @@ namespace Cabana.Models.BIZ
                     throw new Exception();
 
                 if (_u.Any())
-                    return _u[0];
+                    return _u[0];//I see now that there can be more users with the same username
                 return new MyUser();
             }
         }
@@ -56,7 +56,7 @@ namespace Cabana.Models.BIZ
                     throw new Exception();
 
                 if (_u.Any())
-                    return _u[0];
+                    return _u[0];//I see now that there can be more users with the same username
                 return new MyUser();
             }
         }

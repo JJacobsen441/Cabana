@@ -6,6 +6,28 @@ namespace Cabana.Models
     {
     }
 
+    public class Entry1 { public string name { get; set; } }
+    public class Result1
+    {
+        public List<Entry1> members { get; set; }
+        public string error { get; set; }
+    }
+
+    public class Entry2 { public string m_name { get; set; } }
+    public class Result2
+    {
+        public string name { get; set; }
+        public List<Entry2> movies { get; set; }
+        public string error { get; set; }
+    }
+
+
+
+
+
+
+
+
     public class Genre
     {
         public int id { get; set; }

@@ -6,7 +6,10 @@
             method: "GET"//,
             //contentType: "application/json;charset=utf-8"
         }).then(function (response) {
-            var obj = JSON.parse(response.data);
+            //alert(JSON.stringify(response.data));
+            //var obj = JSON.parse(response.data);
+            var obj = response.data;
+            
             //angular.element('#tester').html(obj.data);
             if (obj.error == '') {
                 $scope.members = obj.members;
