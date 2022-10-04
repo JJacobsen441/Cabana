@@ -69,7 +69,7 @@ namespace Cabana.Controllers
                 DtoMyUser user = DBAccess.GetUserMovies(name);
 
                 if (string.IsNullOrEmpty(user.Name))
-                    _res = "{\"error\":\"no users by that name\"}";
+                    _res = "{\"error\":\"no users by that name or user has no movies\"}";
                 else
                 {
                     List<DtoMovie> movies = user.Movies;

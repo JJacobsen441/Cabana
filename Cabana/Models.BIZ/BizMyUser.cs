@@ -67,7 +67,8 @@ namespace Cabana.Models.BIZ
                 throw new Exception();
 
             BizMovie biz = new BizMovie();
-            List<DtoMovie> list = null;
+            //we set this to an empty list instead of null, so it dosnt break in loops
+            List<DtoMovie> list = new List<DtoMovie>();
             if(user.Movies != null && user.Movies.Any())
                 list = biz.ToDTOList(user.Movies);
 
