@@ -11,9 +11,9 @@
             var obj = response.data;
             
             //angular.element('#tester').html(obj.data);
-            if (obj.error == '') {
+            if (response.status == 200) {
                 $scope.members = obj.members;
-                $scope.error = '';
+                $scope.error = obj.error;
             }
             else {
                 $scope.error = obj.error;

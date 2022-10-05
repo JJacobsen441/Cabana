@@ -52,7 +52,7 @@ namespace Cabana.Statics
 
         public static bool CheckName(ref string name, bool tolower, int len, bool allow_upper, List<string> tags, char[] characters)
         {
-            if (name.IsNull())
+            if (string.IsNullOrEmpty(name))
                 return false;
 
             name = HttpUtility.UrlDecode(name);

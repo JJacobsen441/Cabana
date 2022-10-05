@@ -2,52 +2,83 @@
 using Cabana.Models.DB;
 using Cabana.Models.DTO;
 using Cabana.Statics;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Http.Results;
-using System.Web.Mvc;
 using Umbraco.Web.WebApi;
 
 namespace Cabana.Controllers
 {
-    
+
     //[Route("api")]
     public class ApiAdminController : UmbracoAuthorizedApiController
     {
-        
+        /*
+         * not my code
+         * */
+        public class JsonHttpStatusResult<T> : JsonResult<T>
+        {
+            private readonly HttpStatusCode _httpStatus;
 
-        [HttpGet]
+            public JsonHttpStatusResult(T content, ApiController controller, HttpStatusCode httpStatus)
+            : base(content, new JsonSerializerSettings(), new UTF8Encoding(), controller)
+            {
+                _httpStatus = httpStatus;
+            }
+
+            public override Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+            {
+                var returnTask = base.ExecuteAsync(cancellationToken);
+                returnTask.Result.StatusCode = _httpStatus;// HttpStatusCode.BadRequest;
+                return returnTask;
+            }
+        }
+
+        [System.Web.Mvc.HttpGet]
         //[Route("members")]
         public JsonResult<Result1> GetAllMembers()
         {
             /*
              * I would have liked to return something like JsonResult, but UmbracoAuthorizedApiController dosnt inherit from Controller
              * ..found a way :)
+             * ..It seems now it is only routing that is missing, but I wont go further into that
              * */
 
             try
             {
-                List<MyUser> users = UserHelper.All();
-                List<string> names = users.Select(x => x.Name).ToList();
-                                
                 Result1 res = new Result1();
                 res.members = new List<Entry1>();
-                foreach (string entry in names)
-                    res.members.Add(new Entry1() { name = entry });
                 res.Error = "";
-                
-                return Json(res);/**/
+
+                List<MyUser> users = UserHelper.All();
+                if(users.Any())
+                {                               
+                    foreach (MyUser user in users)
+                        res.members.Add(new Entry1() { name = user.Name });
+
+                    return new JsonHttpStatusResult<Result1>(res, this, HttpStatusCode.OK);
+                }
+
+                res.members = new List<Entry1>();
+                res.Error = "no users found";
+                return new JsonHttpStatusResult<Result1>(res, this, HttpStatusCode.OK);
             }
             catch (Exception e)
             {
-                //Response.StatusCode = 500;
-                Result1 res = new Result1() { Error = "error" };
-                return Json(res);
+                Result1 res = new Result1() { members = new List<Entry1>(), Error = "internal error" };
+                return new JsonHttpStatusResult<Result1>(res, this, HttpStatusCode.InternalServerError);
             }
         }
 
-        [HttpGet]
+        [System.Web.Mvc.HttpGet]
         //[Route("member/{name}/movies")]
         //[Route("member/{name?}/movies")]
         //[Route("umbraco/backoffice/api/{apiadmin}/{member}/{name?}/{movies}")]
@@ -56,90 +87,44 @@ namespace Cabana.Controllers
             /*
              * I would have liked to return something like JsonResult, but UmbracoAuthorizedApiController dosnt inherit from Controller
              * ..found a way :)
+             * ..It seems now it is only routing that is missing, but I wont go further into that
              * */
 
             try
             {
-                if (name.IsNull())
-                    throw new Exception();
-
-                if (!CheckHelper.CheckName(ref name, false, 20, true, new List<string>() { "no_tag" }, CharacterHelper.All(false)))
-                    throw new Exception();
-
                 Result2 res = new Result2();
-                DtoMyUser user = DBAccess.GetUserMovies(name);
+                res.name = "";
+                res.movies = new List<Entry2>();
+                res.Error = "";
 
-                if (string.IsNullOrEmpty(user.Name))
-                    res.Error = "no users by that name or user has no movies";
-                else
+                if (CheckHelper.CheckName(ref name, false, 20, true, new List<string>() { "no_tag" }, CharacterHelper.All(false)))
                 {
-                    List<DtoMovie> movies = user.Movies;
+                    DtoMyUser user = DBAccess.GetUserMovies(name);
 
-                    res.name = user.Name;
-                    res.movies = new List<Entry2>();
+                    if (!string.IsNullOrEmpty(user.Name))
+                    {
+                        res.name = user.Name;
 
-                    foreach (DtoMovie entry in movies)
-                        res.movies.Add(new Entry2() { m_name = entry.title });
-                        
-                    res.Error = "";
+                        foreach (DtoMovie mov in user.Movies)
+                            res.movies.Add(new Entry2() { m_name = mov.title });
+
+                        return new JsonHttpStatusResult<Result2>(res, this, HttpStatusCode.OK);
+                    }
                 }
                 
-                return Json(res);
+                res.name = "";
+                res.movies = new List<Entry2>();
+                res.Error = "no users by that name or user has no movies";
+
+                return new JsonHttpStatusResult<Result2>(res, this, HttpStatusCode.OK);
             }
             catch (Exception e)
             {
-                //Response.StatusCode = 500;
-                Result2 res = new Result2() { Error = "error" };
-                return Json(res);
+                Result2 res = new Result2() { name = "", movies = new List<Entry2>(), Error = "internal error" };
+                return new JsonHttpStatusResult<Result2>(res, this, HttpStatusCode.InternalServerError);
             }
         }
-
-        /*[HttpGet]
-        //[Route("member/{name}/movies")]
-        //[Route("member/{name?}/movies")]
-        //[Route("umbraco/backoffice/api/{apiadmin}/{member}/{name?}/{movies}")]
-        public string GetMembersMovies(string name)
-        {
-            try
-            {
-                if (name.IsNull())
-                    throw new Exception();
-
-                if (!CheckHelper.CheckName(ref name, false, 20, true, new List<string>() { "no_tag" }, CharacterHelper.All(false)))
-                    throw new Exception();
-
-                string res, _res;
-                DtoMyUser user = DBAccess.GetUser(name);
-
-                if (string.IsNullOrEmpty(user.Name))
-                    _res = "{\"error\":\"no users by that name\"}";
-                else
-                {
-                    List<DtoMovie> movies = DBAccess.GetMovies(user.Id);
-
-                    _res = "{\"name\":\"" + user.Name + "\"," + 
-                        "\"movies\":[";
-                    int c = 0;
-                    foreach (DtoMovie entry in movies)
-                    {
-                        if (c != 0)
-                            _res += ",";
-                        _res += "{\"m_name\":\"" + entry.title + "\"}";
-                        c++;
-                    }
-                    _res += "], \"error\":\"\"}";
-                }
-                res = _res;                
-
-                return res;/**
-            }
-            catch (Exception e)
-            {
-                //Response.StatusCode = 500;
-                return "{\"error\":\"error\"}";
-            }
-        }/**/
-
+        
         /*[Route("product/{id?}")]
         public string GetMember(int? id)
         {
