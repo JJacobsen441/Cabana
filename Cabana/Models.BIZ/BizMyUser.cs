@@ -51,7 +51,7 @@ namespace Cabana.Models.BIZ
 
             using (IDatabase db = new Database("umbracoDbDSN"))
             {
-                List<MyUser> _u = db.FetchOneToMany<MyUser>(x=>x.Movies, string.Format("select u.*, m.* from MyUser u inner join Movie m on u.Id = m.MyUserId where u.Name = '{0}' order by u.Id", name));
+                List<MyUser> _u = db.FetchOneToMany<MyUser>(x=>x.Movies, string.Format("select u.*, m.* from MyUser u left join Movie m on u.Id = m.MyUserId where u.Name = '{0}' order by u.Id", name));
                 if (_u.IsNull())
                     throw new Exception();
 

@@ -18,6 +18,7 @@ namespace Cabana.Models
     {
         public List<Entry1> members { get; set; }
 
+        //should maybe be called "message" or "info"
         [JsonProperty(PropertyName = "error")]
         public string Error { get; set; }
     }
@@ -27,6 +28,7 @@ namespace Cabana.Models
         public string name { get; set; }
         public List<Entry2> movies { get; set; }
 
+        //should maybe be called "message" or "info"
         [JsonProperty(PropertyName = "error")]
         public string Error { get; set; }
     }

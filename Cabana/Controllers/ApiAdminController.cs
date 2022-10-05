@@ -108,13 +108,16 @@ namespace Cabana.Controllers
                         foreach (DtoMovie mov in user.Movies)
                             res.movies.Add(new Entry2() { m_name = mov.title });
 
+                        if (!res.movies.Any())
+                            res.Error = "no saved movies";
+
                         return new JsonHttpStatusResult<Result2>(res, this, HttpStatusCode.OK);
                     }
                 }
                 
                 res.name = "";
                 res.movies = new List<Entry2>();
-                res.Error = "no users by that name or user has no movies";
+                res.Error = "no users by that name";
 
                 return new JsonHttpStatusResult<Result2>(res, this, HttpStatusCode.OK);
             }

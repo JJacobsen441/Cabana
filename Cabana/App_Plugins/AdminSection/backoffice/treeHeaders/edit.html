@@ -7,8 +7,8 @@
 
     <button style="height:30px;width:120px" ng-click="ed.getMemberMovies(name.val)" type="button">Search</button>
 
-    <div>{{ error }}</div>
     <div>{{ res_name }}</div>
+    <div>{{ error }}</div>
     <ul>
         <li ng-repeat="z in movies">
             {{ z.m_name }}
