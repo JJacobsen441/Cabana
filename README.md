@@ -23,4 +23,5 @@ pass - asdf123456
 Noter:  
 I mine egne projekter, plejer jeg at have en seperat user, mener Umbraco bruger Identity.  
 Der er måske nogle misforståelser ved brugen af sektions og trees.  
+Måske skulle Id i Movie tabellen og UmbId i MyUser tabellen have været long"bigint".  
 Entity framework ville have taget sig af sql injections.  
