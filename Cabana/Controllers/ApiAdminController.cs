@@ -13,12 +13,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
+using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
 
 namespace Cabana.Controllers
 {
 
     //[Route("api")]
+    //[IsBackOffice]
+    //[PluginController("myapi")]
     public class ApiAdminController : UmbracoAuthorizedApiController
     {
         /*

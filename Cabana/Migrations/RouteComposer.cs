@@ -57,14 +57,16 @@ namespace Cabana.Migrations
 
             RouteTable.Routes.MapRoute("MembersMovies",
                 _globalSettings.GetUmbracoMvcArea() + "/backoffice/api/{controller}/{action}/{name}/movies",
+                //_globalSettings.GetUmbracoMvcArea() + "/backoffice/myapi/apiadmin/member/{name}/movies",
                 //_globalSettings.GetUmbracoMvcArea() + "/backoffice/api/{controller}/{action}/{name}",
                 new
                 {
                     controller = "ApiAdmin",
-                    action = "GetMembersMovies",
-                    name = UrlParameter.Optional
-                },
-                constraints: new { controller = "ApiAdmin" });
+                    action = "GetMembersMovies"//,
+                    //name = UrlParameter.Optional
+                }
+                //constraints: new { controller = "ApiAdmin" }
+                );
 
             ;
         }

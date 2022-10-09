@@ -7,7 +7,7 @@
         
         $http({
             url: "/Umbraco/backoffice/Api/ApiAdmin/GetMembersMovies",//member/" + mem_name + "/movies",
-            //url: "/umbraco/backoffice/api/apiadmin/member/" + u_name + "/movies",
+            //url: "/umbraco/backoffice/myapi/apiadmin/member/" + u_name + "/movies",
             //url: "/umbraco/backoffice/api/apiadmin/membermovies/" + u_name,
             method: "GET",
             params: {

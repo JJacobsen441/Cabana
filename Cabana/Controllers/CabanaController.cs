@@ -27,21 +27,27 @@ namespace Cabana.Controllers
                 Movies mov = RestHelper.MoviesGET(model.search_string);
                 Genres gen = RestHelper.GenresGET();
 
+                /*
+                 * we deliver all genres, even though we dont use all genres in front
+                 * */
+                
                 List<DtoMovie> _m = new List<DtoMovie>();
-                foreach (Result _r in mov.results)
+                /*foreach (Result _r in mov.results)
                 {
-                    /*
-                     * we deliver all genres, even though we dont use all genres in front
-                     * 
-                     * could be done like this, oneliner
-                     * _r.genre_ids.ForEach(x => genres.Add(gen.genres.Where(z => z.id == x).FirstOrDefault().name));
-                     * */
                     List<string> genres = new List<string>();
                     foreach (int _i in _r.genre_ids)
                     {
                         Genre _g = gen.genres.Where(x => x.id == _i).FirstOrDefault();
                         genres.Add(_g.name);
                     }
+
+                    _m.Add(new DtoMovie(_r.id, _r.title, _r.vote_average, genres, null));
+                }/**/
+
+                foreach (Result _r in mov.results)
+                {
+                    List<int> mov_ids = _r.genre_ids.ToList();
+                    List<string> genres = gen.genres.Where(x => mov_ids.Contains(x.id)).Select(x => x.name).ToList();
 
                     _m.Add(new DtoMovie(_r.id, _r.title, _r.vote_average, genres, null));
                 }
