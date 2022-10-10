@@ -71,7 +71,7 @@ namespace Cabana.Models.BIZ
 
             using (IDatabase db = new Database("umbracoDbDSN"))
             {
-                var mov = db.Fetch<Cabana.Models.DB.Movie>("where MovieId = " + movie_id);
+                var mov = db.Fetch<Cabana.Models.DB.Movie>("where MovieId = " + movie_id + " and MyUserId = " + _u.Id);
                 db.Delete("Movie", "Id", mov[0]);
                 //db.Dispose();
             }
