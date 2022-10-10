@@ -347,11 +347,13 @@
     <Compile Include="App_Plugins\AdminSection\AdminController.cs" />
     <Compile Include="Controllers\ApiAdminController.cs" />
     <Compile Include="Controllers\CabanaController.cs" />
+    <Compile Include="Controllers\DeleteController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShowController.cs" />
+    <Compile Include="Migrations\RouteComposeDelete.cs" />
     <Compile Include="Migrations\RouteComposer.cs" />
     <Compile Include="Models.BIZ\BizMovie.cs" />
     <Compile Include="Models.BIZ\BizMyUser.cs" />
@@ -439,6 +441,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Cabana\" />
+    <Folder Include="Views\Delete\" />
     <Folder Include="Views\HomePage\" />
     <Folder Include="Views\MyRegister\" />
     <Folder Include="Views\Save\" />

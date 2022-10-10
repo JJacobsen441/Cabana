@@ -62,6 +62,21 @@ namespace Cabana.Models.BIZ
             }
         }
 
+        public void DeleteMovie(int movie_id)
+        {
+            MyUser _u = UserHelper.Current();
+
+            if (!HasMovie(_u.Id, movie_id))
+                return;
+
+            using (IDatabase db = new Database("umbracoDbDSN"))
+            {
+                var mov = db.Fetch<Cabana.Models.DB.Movie>("where MovieId = " + movie_id);
+                db.Delete("Movie", "Id", mov[0]);
+                //db.Dispose();
+            }
+        }
+
         public List<DtoMovie> ToDTOList(List<Cabana.Models.DB.Movie> movies)
         {
             if (movies.IsNull())

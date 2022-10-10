@@ -102,9 +102,11 @@ Cabana.DB.AddMyUserTable, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyTok
 Cabana.DB.AddColumn, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.DB.AddColumnAgain, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.DB.AddColumnAgain3, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Cabana.Migrations.RegisterDeleteMvcRouteComposer, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Migrations.RegisterCustomBackofficeMvcRouteComposer, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.ApiAdminController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.CabanaController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Cabana.Controllers.DeleteController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.HomePageController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.SaveController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.SearchController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -338,6 +340,7 @@ Umbraco.Core.Logging.Viewer.LogViewerComposer, Umbraco.Core, Version=8.0.0.0, Cu
 Cabana.DB.FKComposer, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.DB.MovieComposer, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.DB.MyUserComposer, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Cabana.Migrations.RegisterDeleteMvcRouteComposer, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Migrations.RegisterCustomBackofficeMvcRouteComposer, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.Web.SignalR.PreviewHubComposer, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.Web.Runtime.WebInitialComposer, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -408,6 +411,7 @@ Umbraco.Web.Controllers.UmbLoginController, Umbraco.Web, Version=8.0.0.0, Cultur
 
 Umbraco.Web.Mvc.IRenderMvcController
 
+Cabana.Controllers.DeleteController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.HomePageController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.SaveController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Cabana.Controllers.SearchController, Cabana, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

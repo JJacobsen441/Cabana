@@ -20,6 +20,12 @@ namespace Cabana.Models.DB
             biz.AddMovie(movie_id);
         }
 
+        public static void DeleteMovie(int movie_id)
+        {
+            BizMovie biz = new BizMovie();
+            biz.DeleteMovie(movie_id);
+        }
+
         public static void AddUser(string name, int umb_id)
         {
             BizMyUser biz = new BizMyUser();

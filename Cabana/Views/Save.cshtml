@@ -15,10 +15,11 @@
         {
             foreach (DtoMovie _m in items)
             {
-                <div>
-                    <span style="display:inline-block;width:200px">Title: @_m.title</span>
-                    <span><a href="/show?movie_id=@_m.movie_id">show</a><br /></span>
-                </div>
+        <div>
+            <span style="display:inline-block;width:200px">Title: @_m.title</span>
+            <span><a href="/show?movie_id=@_m.movie_id">show</a></span>
+            <span><a href="/delete?movie_id=@_m.movie_id">&nbsp;delete</a><br /></span>
+        </div>
             }
         }
     }
