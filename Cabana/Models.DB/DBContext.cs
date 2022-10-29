@@ -17,17 +17,23 @@ namespace Cabana.Models.DB
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MyUser>()
-                .HasKey(b => b.Id);
-
-            modelBuilder.Entity<Movie>()
-                .HasKey(b => b.Id);
-
             //modelBuilder.Entity<MyUser>()
-            //    .HasMany(e => e.movies);
+            //    .HasMany(b => b.Movies);
 
             //modelBuilder.Entity<Movie>()
-            //    .HasRequired(e => e.user);
+            //    .HasRequired(e => e.MyUser);
+
+            modelBuilder.Entity<MyUser>()
+                .HasMany(b => b.Movies)
+                .WithRequired(b => b.MyUser)
+                .HasForeignKey(b => b.MyUserID)
+                ;
+
+            //modelBuilder.Entity<Movie>()
+            //    .HasRequired(e => e.MyUser)
+            //    .WithMany(e=>e.Movies)
+            //    .HasForeignKey(e=>e.MovieID)
+            //    ;
         }
     }
 }/**/

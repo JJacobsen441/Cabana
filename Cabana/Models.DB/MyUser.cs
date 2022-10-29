@@ -8,11 +8,11 @@ namespace Cabana.Models.DB
     public class MyUser
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public int UmbId { get; set; }
         public string Name { get; set; }
+        [Required]
         public List<Movie> Movies { get; set; }
-        //public List<Movie> movies { get; set; }
     }/**/
 
     //public class UserNPoco

@@ -12,9 +12,11 @@ namespace Cabana.Models.DB
         public long MovieID { get; set; }
 
         public string Title { get; set; }
-        
+
+        [Required]
         public long MyUserID { get; set; }
 
-        //public MyUser user { get; set; }
+        //[Required]
+        public MyUser MyUser { get; set; }
     }
 }

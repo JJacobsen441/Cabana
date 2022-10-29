@@ -6,7 +6,7 @@ namespace Cabana.Models.DB
 {
     public class DBAccess
     {
-        public static List<DtoMovie> GetMovies(int userId)
+        public static List<DtoMovie> GetMovies(long userId)
         {
             BizMovie biz = new BizMovie();
             List<Cabana.Models.DB.Movie> movies = biz.GetMovies(userId);
@@ -32,7 +32,7 @@ namespace Cabana.Models.DB
             biz.AddUser(name, umb_id);
         }
 
-        public static DtoMyUser GetUser(string name)
+        public static DtoMyUser _GetUser(string name)
         {
             BizMyUser biz = new BizMyUser();
             MyUser user = biz.GetUser(name);
